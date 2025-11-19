@@ -152,7 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a33f41ba1ea16441a9a3c2d65a5b845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainGameSceneName: SampleScene
+  mainGameSceneName: Lvl1
+  videoClips:
+  - {fileID: 32900000, guid: 4f30486179adcfe419e5c01cf4baf8a4, type: 3}
+  - {fileID: 32900000, guid: 438aa94f617669842b0f5af8034abcbe, type: 3}
 --- !u!328 &244415637
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -161,7 +164,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244415635}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 438aa94f617669842b0f5af8034abcbe, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 974247963}
@@ -182,7 +185,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
