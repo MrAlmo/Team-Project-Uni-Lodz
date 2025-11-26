@@ -15,7 +15,12 @@ MonoBehaviour:
   npcName: Witch
   npcPortrait: {fileID: 21300000, guid: 7bccc74bad5999141af9aa7758cbaaca, type: 3}
   dialogueLines:
-  - Hello
+  - I know your path. You seek to bargain with Death
+  - for your brother's soul
+  - Foolish. Death does not negotiate. You will fail
+  - Listen carefully. The only way is war
+  - Hunt the other Horsemen. Seize their artifacts.
+  - Only with their power  you can destroy Death.
   autoProgressLines: 00
   autoProgressDelay: 1.5
   typingSpeed: 0.05
