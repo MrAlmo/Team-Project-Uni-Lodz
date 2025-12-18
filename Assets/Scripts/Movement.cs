@@ -15,43 +15,51 @@ public class Movement : MonoBehaviour
 
     float move_Raw;
     bool is_Grounded = false;
-    bool m_FacingRight = true; 
+
+    
+    bool m_FacingRight = true;
 
     void Start()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        m_Animator = GetComponent<Animator>(); 
+        m_Animator = GetComponent<Animator>();
     }
-
 
     void Update()
     {
         move_Raw = Input.GetAxisRaw("Horizontal");
-        
 
         is_Grounded = Physics2D.OverlapCircle(GroundCheck.position, groundCheckRadius, groundlayer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && is_Grounded)
+        
+        if (move_Raw > 0 && !m_FacingRight)
         {
-            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, jump);
-            
+            Flip();
+        }
+        
+        else if (move_Raw < 0 && m_FacingRight)
+        {
+            Flip();
         }
 
         
-        
-        m_Animator.SetFloat("MoveX", move_Raw);
+        if (Input.GetKeyDown(KeyCode.Space) && is_Grounded)
+        {
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, jump);
+        }
 
-       
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+            m_Animator.SetTrigger("Attack");
+        }
+
+        
+        m_Animator.SetFloat("MoveX", Mathf.Abs(move_Raw));
+
         m_Animator.SetBool("Movement", Mathf.Abs(move_Raw) > 0.01f);
-
-        
         m_Animator.SetFloat("MoveY", m_Rigidbody2D.velocity.y);
-
-        
-
-
-       
-        
     }
 
     private void FixedUpdate()
@@ -59,6 +67,7 @@ public class Movement : MonoBehaviour
         m_Rigidbody2D.velocity = new Vector2(move_Raw * speed, m_Rigidbody2D.velocity.y);
     }
 
+    
     private void Flip()
     {
         
@@ -66,8 +75,10 @@ public class Movement : MonoBehaviour
 
         
         Vector3 theScale = transform.localScale;
+
         
         theScale.x *= -1;
+
         
         transform.localScale = theScale;
     }
