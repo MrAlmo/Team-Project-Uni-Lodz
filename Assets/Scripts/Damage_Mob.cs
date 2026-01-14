@@ -20,7 +20,7 @@ public class Damage_Mob : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision != null && collision.gameObject.CompareTag("Player")) {
-            Health a = collision.gameObject.GetComponent<Health>();
+            PlayerHealth a = collision.gameObject.GetComponent<PlayerHealth>();
             a.TakeDamage(20);
         }
     }

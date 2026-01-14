@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] float ShineTime = 1f;
+    [SerializeField] float invulnerabilityTime = 1f;
     [SerializeField] float flashInterval = 0.1f;
-
     public int maxHP = 100;
     public int currentHP;
 
+    bool isInvulnerable;
+
     SpriteRenderer spriteRenderer;
+
     public UnityEvent<float> OnHealthChanged;
 
     void Start()
@@ -23,6 +25,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (isInvulnerable) return;
 
         currentHP -= amount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
@@ -32,13 +35,14 @@ public class Health : MonoBehaviour
         if (currentHP <= 0)
             Die();
 
-        StartCoroutine(ShineCoroutine());
+        StartCoroutine(InvulnerabilityCoroutine());
     }
-
-    IEnumerator ShineCoroutine() 
+    IEnumerator InvulnerabilityCoroutine()
     {
+        isInvulnerable = true;
+
         float elapsed = 0f;
-        while (elapsed < ShineTime)
+        while (elapsed < invulnerabilityTime)
         {
             spriteRenderer.enabled = !spriteRenderer.enabled;
             yield return new WaitForSeconds(flashInterval);
@@ -46,11 +50,11 @@ public class Health : MonoBehaviour
         }
 
         spriteRenderer.enabled = true;
+        isInvulnerable = false;
     }
     void Die()
     {
         Destroy(gameObject);
-        EnemyManager.Instance.EnemyDied();
     }
 
     public float GetHealthPercent()

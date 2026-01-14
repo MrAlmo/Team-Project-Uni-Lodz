@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HelthBar_UI : MonoBehaviour
 {
-    public Health health;
+    public PlayerHealth playerHealth;
     public Slider slider;
 
     void Start()
@@ -19,6 +19,6 @@ public class HelthBar_UI : MonoBehaviour
     
     void Update()
     {
-        slider.value = health.GetHealthPercent();
+        slider.value = playerHealth.GetHealthPercent();
     }
 }
