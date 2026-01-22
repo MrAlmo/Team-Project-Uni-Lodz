@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 28707840}
+  - component: {fileID: 28707841}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -155,6 +156,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &28707841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28707839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87311f117f35bb54d89a7754c6e28677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsPanel: {fileID: 707690368}
+  musicSlider: {fileID: 845152871}
+  mainMenuSceneName: MainMenu
+  musicSource: {fileID: 1446376251}
 --- !u!1 &36399132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,11 +1271,11 @@ RectTransform:
   m_Children:
   - {fileID: 1021734395}
   m_Father: {fileID: 707690369}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7394, y: -46.745007}
+  m_AnchoredPosition: {x: -10.25165, y: -33.530045}
   m_SizeDelta: {x: 189.94, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &399265347
@@ -1305,7 +1322,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1446376252}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsController, Assembly-CSharp
         m_MethodName: CloseSettings
         m_Mode: 1
@@ -1699,7 +1716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.146112, y: -5.97955, z: -5}
+  m_LocalPosition: {x: -12.175105, y: -5.97825, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2296,18 +2313,18 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 845152870}
+  - {fileID: 1606471234}
+  - {fileID: 1357099569}
   - {fileID: 399265346}
   - {fileID: 1731515872}
-  - {fileID: 845152870}
-  - {fileID: 1357099569}
-  - {fileID: 1606471234}
   m_Father: {fileID: 1628099932}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -37, y: -2.255005}
-  m_SizeDelta: {x: -1563.274, y: -657.497}
+  m_AnchoredPosition: {x: -20.008972, y: -15.469971}
+  m_SizeDelta: {x: -1529.292, y: -631.066}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &707690370
 MonoBehaviour:
@@ -2684,11 +2701,11 @@ RectTransform:
   - {fileID: 1155190364}
   - {fileID: 1953952572}
   m_Father: {fileID: 707690369}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7387, y: -94.74503}
+  m_AnchoredPosition: {x: -10.252348, y: -81.530106}
   m_SizeDelta: {x: 189.94, y: 26.889}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &845152871
@@ -4369,11 +4386,11 @@ RectTransform:
   m_Children:
   - {fileID: 1654847276}
   m_Father: {fileID: 707690369}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.742, y: 2.2549994}
+  m_AnchoredPosition: {x: -10.249048, y: 15.469962}
   m_SizeDelta: {x: 189.93, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1357099570
@@ -4420,7 +4437,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1446376252}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsController, Assembly-CSharp
         m_MethodName: LoadMainMenu
         m_Mode: 1
@@ -5003,7 +5020,6 @@ GameObject:
   - component: {fileID: 1446376249}
   - component: {fileID: 1446376248}
   - component: {fileID: 1446376251}
-  - component: {fileID: 1446376252}
   m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
@@ -5200,22 +5216,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1446376252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1446376247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87311f117f35bb54d89a7754c6e28677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settingsPanel: {fileID: 707690368}
-  musicSlider: {fileID: 845152871}
-  mainMenuSceneName: MainMenu
-  musicSource: {fileID: 1446376251}
 --- !u!1 &1453272848
 GameObject:
   m_ObjectHideFlags: 0
@@ -5808,11 +5808,11 @@ RectTransform:
   m_Children:
   - {fileID: 1600494700}
   m_Father: {fileID: 707690369}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.741, y: 55.254997}
+  m_AnchoredPosition: {x: -10.250048, y: 68.469925}
   m_SizeDelta: {x: 189.934, y: 30.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606471235
@@ -5859,7 +5859,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1446376252}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsController, Assembly-CSharp
         m_MethodName: ContinueGame
         m_Mode: 1
@@ -6337,11 +6337,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 707690369}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49.528, y: 101.2}
+  m_AnchoredPosition: {x: 54, y: 169}
   m_SizeDelta: {x: 196.128, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1731515873

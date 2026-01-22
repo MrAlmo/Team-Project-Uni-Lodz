@@ -1,9 +1,31 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Потрібно для переходу між сценами
-using UnityEngine.UI; // Потрібно для роботи зі Slider
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
 {
+    // --- НОВА ЧАСТИНА: СІНГЛТОН ---
+    public static SettingsController instance;
+
+    private void Awake()
+    {
+        // Перевіряємо, чи вже існує такий контролер
+        if (instance == null)
+        {
+            // Якщо ні — це і є наш головний контролер
+            instance = this;
+            // Ця команда робить об'єкт "безсмертним" при зміні сцен
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // Якщо контролер вже є (наприклад, ми повернулися в меню і завантажився новий),
+            // то знищуємо цей новий об'єкт, щоб не було дублікатів
+            Destroy(gameObject);
+        }
+    }
+    // ---------------------------------
+
     [Header("UI Елементи")]
     [Tooltip("Перетягніть сюди весь об'єкт панелі меню (Settings Panel)")]
     public GameObject settingsPanel;
@@ -18,31 +40,26 @@ public class SettingsController : MonoBehaviour
     [Tooltip("Джерело фонової музики (Audio Source)")]
     public AudioSource musicSource;
 
-    // Змінна, щоб знати, чи гра зараз на паузі
     private bool isPaused = false;
 
     void Start()
     {
-        // При старті ховаємо меню
         settingsPanel.SetActive(false);
 
-        // Налаштовуємо слайдер на поточну гучність
         if (musicSource != null)
         {
             musicSlider.value = musicSource.volume;
-            // Підписуємо слайдер на зміни (щоб працював звук)
             musicSlider.onValueChanged.AddListener(SetVolume);
         }
     }
 
     void Update()
     {
-        // Натискання ESC відкриває або закриває меню
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
-                ContinueGame();
+                CloseSettings(); // Використовуємо CloseSettings для універсальності
             }
             else
             {
@@ -51,32 +68,28 @@ public class SettingsController : MonoBehaviour
         }
     }
 
-    // --- Функції для кнопок ---
-
     public void PauseGame()
     {
-        settingsPanel.SetActive(true); // Показати меню
-        Time.timeScale = 0f; // Зупинити час у грі
+        settingsPanel.SetActive(true);
+        Time.timeScale = 0f;
         isPaused = true;
     }
 
     public void ContinueGame()
     {
-        settingsPanel.SetActive(false); // Сховати меню
-        Time.timeScale = 1f; // Відновити час
-        isPaused = false;
+        CloseSettings();
     }
 
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f; // Обов'язково відновлюємо час перед виходом
+        Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
     public void CloseSettings()
     {
-        settingsPanel.SetActive(false); // Ховаємо меню
-        Time.timeScale = 1f; // Відновлюємо гру
+        settingsPanel.SetActive(false);
+        Time.timeScale = 1f;
         isPaused = false;
     }
 
