@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boss1.unity
     guid: 6abeb164309739c49a65b320d63eae03
+  - enabled: 1
+    path: Assets/Scenes/Lastscene.unity
+    guid: dc4bed12a35f3dc4fa34db759db96291
   m_configObjects: {}
