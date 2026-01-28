@@ -766,7 +766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316396185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6764259, y: -0.4662, z: -10}
+  m_LocalPosition: {x: -0.08964157, y: -0.44367003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -928,7 +928,7 @@ SpriteRenderer:
   m_Size: {x: 3.7500002, y: 4.341276}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &383099507
@@ -1453,8 +1453,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.076616436}
-  m_Size: {x: 1, y: 1.2951303}
+  m_Offset: {x: 0.36038247, y: -0.19355318}
+  m_Size: {x: 0.3238208, y: 0.75479263}
   m_Direction: 0
 --- !u!114 &650066339
 MonoBehaviour:
@@ -2842,9 +2842,9 @@ PolygonCollider2D:
       - {x: 0.07150116, y: -0.155}
       - {x: 0.060565196, y: -0.113976575}
       - {x: 0.062223844, y: -0.0493751}
-      - {x: 0.09741724, y: -0.038242027}
-      - {x: 0.14953397, y: -0.003990028}
-      - {x: 0.07698676, y: 0.0373186}
+      - {x: 0.07160834, y: -0.038242027}
+      - {x: 0.06694533, y: -0.009269118}
+      - {x: 0.06408212, y: 0.0373186}
       - {x: 0.059483513, y: 0.07801108}
       - {x: 0.0654887, y: 0.11602639}
       - {x: 0.045459647, y: 0.15477736}
@@ -2885,7 +2885,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0a941408a5e15654499aa421ee92284d, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
