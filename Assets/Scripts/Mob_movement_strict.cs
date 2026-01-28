@@ -9,12 +9,14 @@ public class Mob_movement_strict : MonoBehaviour
 
     private int current = 0;
     Rigidbody2D rb;
-    Animator m_Animator; 
+    Animator m_Animator;
+    Vector3 originalScale;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        m_Animator = GetComponent<Animator>(); 
+        m_Animator = GetComponent<Animator>();
+        originalScale = transform.localScale;
     }
 
     void Update()
@@ -37,9 +39,18 @@ public class Mob_movement_strict : MonoBehaviour
             bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
             m_Animator.SetBool("Movement", isMoving);
         }
-       
 
-        
+        if (direction.x > 0.1f)
+        {
+            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+        }
+        else if (direction.x < -0.1f)
+        {
+            transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+        }
+
+
+
         if (Mathf.Abs(target.x - transform.position.x) < 0.1f)
         {
             current += 1;
@@ -49,4 +60,6 @@ public class Mob_movement_strict : MonoBehaviour
             }
         }
     }
+
+    
 }
