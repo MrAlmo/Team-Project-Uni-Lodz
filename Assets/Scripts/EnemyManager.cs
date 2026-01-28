@@ -36,6 +36,7 @@ public class EnemyManager : MonoBehaviour
     public void LevelCompleted() 
     {
         teleport.Active = true;
+        teleport.gameObject.SetActive(true);
     }
 
 }
