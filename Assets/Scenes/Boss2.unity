@@ -730,14 +730,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1192614155}
   - component: {fileID: 1192614154}
+  - component: {fileID: 1192614157}
   - component: {fileID: 1192614153}
   - component: {fileID: 1192614156}
   - component: {fileID: 1192614152}
   - component: {fileID: 1192614151}
   - component: {fileID: 1192614150}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: LastBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -755,8 +756,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.73, y: 1.07}
+  m_Offset: {x: -0.00000015381845, y: -0.18217014}
+  m_Size: {x: 0.52628404, y: 0.8049903}
   m_Direction: 0
 --- !u!50 &1192614151
 Rigidbody2D:
@@ -879,7 +880,8 @@ Transform:
   m_LocalPosition: {x: 1.1607, y: -2.193, z: 0}
   m_LocalScale: {x: 3.1, y: 2.6, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1435563535}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -895,6 +897,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0e00b296978b04d962f2b85cc4749d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2071168859}
+  attackRange: 2
+  waveCooldown: 5
+  attackRate: 1.5
+  attackDelay: 0.5
+  damage: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  wavePrefab: {fileID: 5709152131765094299, guid: 3ab7cc6731725754e98c42012cf60726, type: 3}
+  waveSpawnPoint: {fileID: 1435563535}
+  spearPrefab: {fileID: 7254742478923651548, guid: 22db24b0a8dc6c646a2ed68b6fe4c857, type: 3}
+  spearCount: 5
+  spearDelay: 0.3
+  skyCooldown: 10
+--- !u!114 &1192614157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192614149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07552493972c2c46b3a70e7baae98be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShineTime: 1
+  flashInterval: 0.1
+  maxHP: 100
+  currentHP: 0
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1263684737
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,6 +961,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 350360344}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1435563534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1435563535}
+  m_Layer: 0
+  m_Name: WavePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1435563535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435563534}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.071, y: -0.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1192614155}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1625458524
 GameObject:
@@ -1044,7 +1111,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.2677836
+  orthographic size: 4.8091764
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -6,10 +6,10 @@ public class Fake_Teleport : MonoBehaviour
 {
 
     [SerializeField] private PlayerHealth playerHealth;
-    private bool isActive = true;
+    public bool isActive = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerHealth != null && isActive)
+        if (collision != null && collision.gameObject.CompareTag("Player") && isActive)
         {
             playerHealth.TakeDamage(playerHealth.maxHP);
         }

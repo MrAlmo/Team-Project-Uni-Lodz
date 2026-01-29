@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Instance;
 
     [SerializeField] LVL3_teleport teleport;
+    [SerializeField] Fake_Teleport fake_teleport;
 
     int enemiesAlive;
 
@@ -37,6 +38,9 @@ public class EnemyManager : MonoBehaviour
     {
         teleport.Active = true;
         teleport.gameObject.SetActive(true);
+
+        fake_teleport.isActive = true;
+        fake_teleport.gameObject.SetActive(true);
     }
 
 }

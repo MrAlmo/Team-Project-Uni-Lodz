@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public class Health : MonoBehaviour
 {
 
@@ -54,8 +55,14 @@ public class Health : MonoBehaviour
 
 
         if (currentHP <= 0)
-
+        {
+            if (gameObject.tag == "LastBoss")
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
             Die();
+            
+        }
 
 
 
@@ -96,6 +103,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
 
         EnemyManager.Instance.EnemyDied();
+        
 
     }
 
