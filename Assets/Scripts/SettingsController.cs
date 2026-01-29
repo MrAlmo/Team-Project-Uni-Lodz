@@ -4,27 +4,26 @@ using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
 {
-    // --- Ќќ¬ј „ј—“»Ќј: —≤Ќ√Ћ“ќЌ ---
+    
     public static SettingsController instance;
 
     private void Awake()
     {
-        // ѕерев≥р€Їмо, чи вже ≥снуЇ такий контролер
+        
         if (instance == null)
         {
-            // якщо н≥ Ч це ≥ Ї наш головний контролер
+            
             instance = this;
-            // ÷€ команда робить об'Їкт "безсмертним" при зм≥н≥ сцен
+            
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            // якщо контролер вже Ї (наприклад, ми повернулис€ в меню ≥ завантаживс€ новий),
-            // то знищуЇмо цей новий об'Їкт, щоб не було дубл≥кат≥в
+            
             Destroy(gameObject);
         }
     }
-    // ---------------------------------
+   
 
     [Header("UI ≈лементи")]
     [Tooltip("ѕерет€гн≥ть сюди весь об'Їкт панел≥ меню (Settings Panel)")]
@@ -59,7 +58,7 @@ public class SettingsController : MonoBehaviour
         {
             if (isPaused)
             {
-                CloseSettings(); // ¬икористовуЇмо CloseSettings дл€ ун≥версальност≥
+                CloseSettings(); 
             }
             else
             {
@@ -86,10 +85,18 @@ public class SettingsController : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
+    public void QuitGame() 
+    {
+        
+        Application.Quit();
+    }
     public void CloseSettings()
     {
+
         settingsPanel.SetActive(false);
+
         Time.timeScale = 1f;
+
         isPaused = false;
     }
 

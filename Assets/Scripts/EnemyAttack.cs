@@ -34,8 +34,7 @@ public class EnemyAttack : MonoBehaviour
         {
             player.GetComponent<PlayerHealth>()?.TakeDamage(1);
         }
-        // animations needs to be
-
+        
     }
 
     private void OnDrawGizmosSelected()

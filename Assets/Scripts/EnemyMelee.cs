@@ -102,7 +102,7 @@ public class EnemyMelee : MonoBehaviour
         isAttacking = true;
         rb.velocity = Vector2.zero;
 
-        // animation zamaha needs to be
+        
         yield return new WaitForSeconds(attackDelay);
 
         Collider2D hit = Physics2D.OverlapCircle(

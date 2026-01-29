@@ -14,8 +14,7 @@ public class NPC1 : MonoBehaviour, IInteractable
     private int dialogueIndex;
     private bool isTyping, isDialogueActive;
 
-    // --- НОВА ЗМІННА ---
-    // Цей прапорець показує, чи знаходиться гравець у зоні тригера
+    
     private bool isPlayerNearby;
 
     public bool CanInteract()
@@ -38,11 +37,10 @@ public class NPC1 : MonoBehaviour, IInteractable
         }
     }
 
-    // --- НОВИЙ МЕТОД ---
-    // Update викликається щокадру
+    
     private void Update()
     {
-        // Якщо гравець поруч I натискає клавішу "E", почати взаємодію
+        
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
             Interact();
@@ -110,26 +108,24 @@ public class NPC1 : MonoBehaviour, IInteractable
         PauseController.SetPause(false);
     }
 
-    // --- НОВИЙ МЕТОД ---
-    // Викликається, коли щось входить у наш тригер (Collider2D)
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Перевіряємо, чи це об'єкт з тегом "Player"
+        
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = true;
-            // Тут можна показати підказку "Натисніть E", якщо хочете
+            
         }
     }
 
-    // --- НОВИЙ МЕТОД ---
-    // Викликається, коли щось виходить із нашого тригера
+    
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            // Тут можна сховати підказку
+            
         }
     }
 }

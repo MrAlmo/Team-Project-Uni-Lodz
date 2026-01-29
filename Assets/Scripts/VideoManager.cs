@@ -9,10 +9,10 @@ public class VideoManager : MonoBehaviour
     public string mainGameSceneName;
 
     [Tooltip("ѕерет€гн≥ть сюди ваш≥ в≥део в тому пор€дку, €к вони мають грати")]
-    public VideoClip[] videoClips; // <-- ћасив дл€ к≥лькох в≥део
+    public VideoClip[] videoClips; 
 
     private VideoPlayer videoPlayer;
-    private int currentVideoIndex = 0; // Ћ≥чильник, €ке в≥део зараз граЇ
+    private int currentVideoIndex = 0; 
 
     void Start()
     {
@@ -20,55 +20,55 @@ public class VideoManager : MonoBehaviour
         videoPlayer.isLooping = false;
         videoPlayer.loopPointReached += OnVideoFinished;
 
-        // «апускаЇмо перше в≥део, €кщо список не порожн≥й
+        
         if (videoClips.Length > 0)
         {
             PlayVideo(0);
         }
         else
         {
-            // якщо в≥део не додали, одразу вантажимо гру
+            
             LoadMainScene();
         }
     }
 
     void Update()
     {
-        // ѕропуск в≥део
+       
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
-            // якщо натиснули пропуск, переходимо до наступного кроку
+            
             PlayNextOrLoad();
         }
     }
 
     void PlayVideo(int index)
     {
-        // ¬становлюЇмо кл≥п у плеЇр ≥ запускаЇмо
+        
         videoPlayer.clip = videoClips[index];
         videoPlayer.Play();
     }
 
     void OnVideoFinished(VideoPlayer vp)
     {
-        // ¬≥део зак≥нчилось самост≥йно
+        
         PlayNextOrLoad();
     }
 
     void PlayNextOrLoad()
     {
-        // «б≥льшуЇмо ≥ндекс (переходимо до наступного номера)
+
         currentVideoIndex++;
 
-        // ѕерев≥р€Їмо, чи Ї ще в≥део в списку
+        
         if (currentVideoIndex < videoClips.Length)
         {
-            // якщо Ї наступне в≥део Ч граЇмо його
+            
             PlayVideo(currentVideoIndex);
         }
         else
         {
-            // якщо в≥део зак≥нчились Ч вантажимо сцену
+            
             LoadMainScene();
         }
     }

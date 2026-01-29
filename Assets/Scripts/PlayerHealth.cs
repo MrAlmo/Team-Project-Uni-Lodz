@@ -19,7 +19,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
-        OnHealthChanged.Invoke(1f);
+
+        
+        if (OnHealthChanged != null)
+            OnHealthChanged.Invoke(1f);
+
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -30,13 +34,20 @@ public class PlayerHealth : MonoBehaviour
         currentHP -= amount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
-        OnHealthChanged.Invoke((float)currentHP / maxHP);
+        
+        if (OnHealthChanged != null)
+            OnHealthChanged.Invoke((float)currentHP / maxHP);
 
         if (currentHP <= 0)
+        {
             Die();
-
-        StartCoroutine(InvulnerabilityCoroutine());
+        }
+        else
+        {
+            StartCoroutine(InvulnerabilityCoroutine());
+        }
     }
+
     IEnumerator InvulnerabilityCoroutine()
     {
         isInvulnerable = true;
@@ -44,17 +55,35 @@ public class PlayerHealth : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < invulnerabilityTime)
         {
-            spriteRenderer.enabled = !spriteRenderer.enabled;
+            if (spriteRenderer != null)
+                spriteRenderer.enabled = !spriteRenderer.enabled;
+
             yield return new WaitForSeconds(flashInterval);
             elapsed += flashInterval;
         }
 
-        spriteRenderer.enabled = true;
+        if (spriteRenderer != null)
+            spriteRenderer.enabled = true;
+
         isInvulnerable = false;
     }
+
     void Die()
     {
-        Destroy(gameObject);
+        
+        if (DeathPanel.Instance != null)
+        {
+            DeathPanel.Instance.ShowDeath();
+        }
+        else
+        {
+            Debug.LogError("Не знайдено DeathPanel на сцені!");
+        }
+
+        
+        gameObject.SetActive(false);
+
+        
     }
 
     public float GetHealthPercent()
