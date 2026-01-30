@@ -899,19 +899,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2071168859}
   attackRange: 2
-  waveCooldown: 5
   attackRate: 1.5
   attackDelay: 0.5
   damage: 10
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  waveCooldown: 5
+  skyCooldown: 10
   wavePrefab: {fileID: 5709152131765094299, guid: 3ab7cc6731725754e98c42012cf60726, type: 3}
   waveSpawnPoint: {fileID: 1435563535}
   spearPrefab: {fileID: 7254742478923651548, guid: 22db24b0a8dc6c646a2ed68b6fe4c857, type: 3}
   spearCount: 5
   spearDelay: 0.3
-  skyCooldown: 10
 --- !u!114 &1192614157
 MonoBehaviour:
   m_ObjectHideFlags: 0

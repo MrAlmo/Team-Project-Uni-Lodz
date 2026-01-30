@@ -1,71 +1,64 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class BossAI2: MonoBehaviour
+public class BossAI2 : MonoBehaviour
 {
     public Transform player;
     public float attackRange = 2f;
-    public float waveCooldown = 5f;
     public float attackRate = 1.5f;
     public float attackDelay = 0.5f;
     public int damage = 10;
     public LayerMask playerLayer;
 
-    [Header("Wave Attack")]
+    [Header("Abilities")]
+    public float waveCooldown = 5f;
+    public float skyCooldown = 10f;
     public GameObject wavePrefab;
     public Transform waveSpawnPoint;
+    public GameObject spearPrefab;
+    public int spearCount = 5;
+    public float spearDelay = 0.3f;
 
-    private float nextAttackTime = 0f;
     private float nextWaveTime = 0f;
-    private Animator anim;
-    private bool isAttacking = false;
-    private Rigidbody2D rb;
+    private float nextSkyTime = 0f;
     private float lastAttackTime;
 
+    private Animator anim;
+    private Rigidbody2D rb;
+    private Mob_movement_strict ms;
+
+    private bool isAttacking = false;
     private bool isFacingRight = false;
-
-    Mob_movement_strict ms;
-
-    [Header("Sky Attack")]
-    public GameObject spearPrefab;    
-    public int spearCount = 5;        
-    public float spearDelay = 0.3f;   
-    public float skyCooldown = 10f;    
-    private float nextSkyTime = 0f;
-
-    private Health boss_health;
+    private float lockFlipTimer = 0f; 
 
     void Start()
     {
-        boss_health = GetComponent<Health>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         ms = GetComponent<Mob_movement_strict>();
-
         if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
+
+       
+        isFacingRight = transform.localScale.x > 0;
     }
 
     void Update()
     {
-        
+        if (isAttacking) return;
+
         float distance = Vector2.Distance(transform.position, player.position);
 
+       
+        anim.SetBool("Movement", Mathf.Abs(rb.velocity.x) > 0.5f);
 
-        bool isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
-        anim.SetBool("Movement", isMoving);
-
-
-        CheckDirection();
-
-        if (Time.time >= nextWaveTime + 3)
+     
+        if (Time.time >= nextWaveTime)
         {
             StartCoroutine(AreaAttack());
             nextWaveTime = Time.time + waveCooldown;
-            return;
         }
 
-        if (Time.time >= nextSkyTime + 5)
+        if (Time.time >= nextSkyTime)
         {
             StartCoroutine(SkyAttack());
             nextSkyTime = Time.time + skyCooldown;
@@ -73,139 +66,114 @@ public class BossAI2: MonoBehaviour
 
         if (distance <= attackRange)
         {
-            ms.enabled = false;
-
-            anim.SetBool("Movement", false);
-
-            FacePlayer();
-            TryAttack();
+            if (Time.time >= lastAttackTime + attackRate)
+            {
+                StartCoroutine(MeleeAttack());
+            }
+            else
+            {
+                FacePlayer();
+            }
         }
         else
         {
-            ms.enabled = true;
-            CheckDirectionDuringMovement();
-        }
-
-
-    }
-
-    void TryAttack()
-    {
-        if (isAttacking) return;
-        if (Time.time < lastAttackTime + attackDelay) return;
-        if (!PlayerInFront()) return;
-
-        StartCoroutine(MeleeAttack());
-    }
-
-    bool PlayerInFront()
-    {
-        float directionToPlayer = Mathf.Sign(player.position.x - transform.position.x);
-        return (directionToPlayer > 0 && isFacingRight) || (directionToPlayer < 0 && !isFacingRight);
-    }
-
-    IEnumerator SkyAttack()
-    {
-        anim.SetTrigger("WaveAttack"); 
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < spearCount; i++)
-        {
             
-            Vector3 spawnPos = new Vector3(player.position.x, player.position.y + 10f, 0f);
-
-            
-            spawnPos.x += Random.Range(-1.5f, 1.5f);
-
-            Instantiate(spearPrefab, spawnPos, Quaternion.identity);
-
-            yield return new WaitForSeconds(spearDelay);
+            if (Time.time > lockFlipTimer)
+            {
+                CheckDirection();
+            }
+            else
+            {
+               
+                FacePlayer();
+            }
         }
     }
-    void CheckDirectionDuringMovement()
-    {
-
-        if (rb.velocity.x > 0.1f && !isFacingRight)
-        {
-            Flip();
-        }
-
-        else if (rb.velocity.x < -0.1f && isFacingRight)
-        {
-            Flip();
-        }
-    }
-
-    void FacePlayer()
-    {
-        bool playerOnRight = player.position.x > transform.position.x;
-
-        if (playerOnRight != isFacingRight)
-        {
-            Flip();
-        }
-    }
-
 
     IEnumerator MeleeAttack()
     {
         isAttacking = true;
+        ms.enabled = false;
+
+       
         rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        FacePlayer();
         anim.SetTrigger("Attack");
 
         yield return new WaitForSeconds(attackDelay);
 
         Collider2D hit = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
-
         if (hit != null)
         {
             hit.GetComponent<PlayerHealth>()?.TakeDamage(damage);
         }
 
+        yield return new WaitForSeconds(0.6f);
+
+        rb.velocity = Vector2.zero;
         lastAttackTime = Time.time;
+
+        lockFlipTimer = Time.time + 0.5f;
+
         isAttacking = false;
+        ms.enabled = true;
     }
 
     IEnumerator AreaAttack()
     {
-        anim.SetTrigger("WaveAttack");
-        yield return new WaitForSeconds(0.5f);
+        Instantiate(wavePrefab, waveSpawnPoint.position, isFacingRight ? Quaternion.identity : Quaternion.Euler(0, 180, 0));
+        yield break;
+    }
 
-        Instantiate(wavePrefab, waveSpawnPoint.position, Quaternion.identity);
+    IEnumerator SkyAttack()
+    {
+        for (int i = 0; i < spearCount; i++)
+        {
+            if (player == null) break;
+            Vector3 spawnPos = new Vector3(player.position.x + Random.Range(-1.5f, 1.5f), player.position.y + 10f, 0f);
+            Instantiate(spearPrefab, spawnPos, Quaternion.identity);
+            yield return new WaitForSeconds(spearDelay);
+        }
+    }
 
+    void FacePlayer()
+    {
+        float diff = player.position.x - transform.position.x;
+        if (Mathf.Abs(diff) < 0.2f) return; 
 
-        Quaternion leftRotation = Quaternion.Euler(0, 180, 0);
-        Instantiate(wavePrefab, waveSpawnPoint.position, leftRotation);
+        if (diff > 0 && !isFacingRight) Flip();
+        else if (diff < 0 && isFacingRight) Flip();
+    }
+
+    void CheckDirection()
+    {
+        
+        if (rb.velocity.x > 1.0f && !isFacingRight) Flip();
+        else if (rb.velocity.x < -1.0f && isFacingRight) Flip();
+    }
+
+    void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+        transform.localScale = scale;
+    }
+
+    public void Die()
+    {
+        this.enabled = false;
+        if (ms != null) ms.enabled = false;
+        rb.velocity = Vector2.zero;
+        rb.simulated = false;
+        anim.SetTrigger("Death");
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
-    void CheckDirection()
-    {
-        
-        if (rb.velocity.x > 0.1f && !isFacingRight)
-        {
-            Flip();
-        }
-        
-        else if (rb.velocity.x < -0.1f && isFacingRight)
-        {
-            Flip();
-        }
-    }
-
-    void Flip()
-    {
-        
-        isFacingRight = !isFacingRight;
-
-       
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
     }
 }
